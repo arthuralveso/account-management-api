@@ -6,15 +6,14 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.springframework.data.annotation.Id;
 
 import lombok.Data;
 
 @Data
-@Table(name = "accounts")
 @Entity
+@Table(name="accounts")
 public class Account implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -23,13 +22,13 @@ public class Account implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long accountId;
 	
-	private Long PersonId;
+	private Long personId;
 	
 	private float accounteBalance;
 	
 	private float dailyWithdrawalLimit;
 	
-	private boolean isActive;
+	private boolean active;
 	
 	private Integer accounteType;
 	

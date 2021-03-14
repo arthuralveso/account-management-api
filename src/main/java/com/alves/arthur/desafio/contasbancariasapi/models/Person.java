@@ -6,20 +6,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
-
-import org.springframework.data.annotation.Id;
+import javax.persistence.Id;
 
 import lombok.Data;
 
 @Data
-@Table(name = "persons")
 @Entity
+@Table(name="persons")
 public class Person {
 
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long idPessoa;
+	private long personId;
 	
 	private String name;
 	

@@ -16,8 +16,12 @@ import com.alves.arthur.desafio.contasbancariasapi.services.AccountService;
 @RestController
 public class AccountController {
 	
+	AccountService accountService;
+	
 	@Autowired
-	private AccountService accountService;
+	public AccountController(AccountService accountService) {
+		this.accountService = accountService;
+	}
 	
 	@RequestMapping(value = "/contas", method = RequestMethod.GET)
 	public ResponseEntity<List<Account>> listAccounts() {
