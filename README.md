@@ -27,7 +27,7 @@ $ mvn spring-boot:run
 
 # O servidor inciará na porta:8080 - acesse <http://localhost:8080>
 ```
-Ou no eclipse siga File > import > maven > existing maven projects. e selecione a pasta do projeto que você clonou
+Ou no eclipse siga File > import > maven > existing maven projects. e selecione a pasta do projeto que você clonou. Apos isso vá na classe principal > botão direito > Run as > Java Project
 
 ### Documentação
 
