@@ -29,6 +29,10 @@ $ mvn spring-boot:run
 ```
 Ou no eclipse siga File > import > maven > existing maven projects. e selecione a pasta do projeto que você clonou. Apos isso vá na classe principal > botão direito > Run as > Java Project
 
+### Banco de dados
+
+No caminho main/resources/application.properties você deve alterar as informações para conectar com o seu banco local
+
 ### Documentação
 
  Ao rodar o projeto você poderá acessar <http://localhost:8080/swagger-ui.html> para ter acesso aos end-points e documentação da API
