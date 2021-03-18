@@ -5,17 +5,25 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alves.arthur.desafio.contasbancariasapi.exceptions.PersonAlreadyExistsException;
-import com.alves.arthur.desafio.contasbancariasapi.models.Account;
 import com.alves.arthur.desafio.contasbancariasapi.models.Person;
 import com.alves.arthur.desafio.contasbancariasapi.services.Person.PersonService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
+@Api(value = "API Account Menegement")
+@CrossOrigin(origins = "*")
+@RequestMapping(value= "/api")
 public class PersonController {
 	
 	PersonService personService;
@@ -26,7 +34,8 @@ public class PersonController {
 	}
 	
 	
-	@RequestMapping(value = "/pessoas", method = RequestMethod.GET)
+	@GetMapping("/pessoas")
+	@ApiOperation(value = "Retorna uma lista de pessoas")
 	public ResponseEntity<List<Person>> listAccounts() {
 
 		List<Person> personsList = personService.list();
@@ -34,7 +43,8 @@ public class PersonController {
 		return new ResponseEntity<List<Person>>(personsList, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/pessoas", method = RequestMethod.POST)
+	@PostMapping("/pessoas")
+	@ApiOperation(value = "Cria uma pessoa")
 	public ResponseEntity<Person> createAccount(@RequestBody Person person) {
 
 		try {

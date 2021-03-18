@@ -1,4 +1,4 @@
-package com.alves.arthur.desafio.contasbancariasapi.models;
+package com.alves.arthur.desafio.contasbancariasapi.models.dtos;
 
 import java.util.Date;
 
