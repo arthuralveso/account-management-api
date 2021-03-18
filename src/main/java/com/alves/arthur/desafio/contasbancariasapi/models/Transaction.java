@@ -1,5 +1,6 @@
 package com.alves.arthur.desafio.contasbancariasapi.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -12,18 +13,21 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="transacions")
-public class Transaction {
+@Table(name="transactions")
+public class Transaction implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long transactionId;
 	
-	private Long accountId;
-	
 	private double value;
 	
 	private Date transactionDate;
 	
+	private Long accountId;
+	
+	private boolean isCretid;
 	
 }
