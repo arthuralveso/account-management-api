@@ -12,6 +12,8 @@ Além disto você é necessário o [PostgreSQL](https://www.postgresql.org/).
 
 ### Rodando o Back End (servidor)
 
+No eclipse siga File > import > maven > existing maven projects. e selecione a pasta do projeto que você clonou. Apos isso vá na classe principal > botão direito > Run as > Java Project
+
 ```bash
 # Clone este repositório
 $ git clone <https://github.com/arthuralveso/account-management-api>
@@ -27,7 +29,6 @@ $ mvn spring-boot:run
 
 # O servidor inciará na porta:8080 - acesse <http://localhost:8080>
 ```
-Ou no eclipse siga File > import > maven > existing maven projects. e selecione a pasta do projeto que você clonou. Apos isso vá na classe principal > botão direito > Run as > Java Project
 
 ### Banco de dados
 
