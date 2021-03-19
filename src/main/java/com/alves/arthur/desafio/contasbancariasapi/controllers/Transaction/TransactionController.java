@@ -21,7 +21,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@Api(value = "API Account Menegement")
+@Api(value = "API Account Management")
 @CrossOrigin(origins = "*")
 @RequestMapping(value= "/api")
 public class TransactionController {

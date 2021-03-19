@@ -35,9 +35,9 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public Account create(Account account) throws Exception {
 
-		Account existentAccount = accountRepository.findByPersonId(account.getPersonId());
+		Account existingAccount = accountRepository.findByPersonId(account.getPersonId());
 
-		if(existentAccount != null && existentAccount.getAccountType() == account.getAccountType()) {			
+		if(existingAccount != null && existingAccount.getAccountType() == account.getAccountType()) {			
 			throw new Exception("Account already registered for a person");
 		}
 
@@ -47,12 +47,12 @@ public class AccountServiceImpl implements AccountService {
 	@Transactional
 	@Override
 	public Account blocksAccount(Long id) throws AccountDoesNotExistsException {
-		Account existentAccount = accountRepository.findById(id)
+		Account existingAccount = accountRepository.findById(id)
 				.orElseThrow(() -> new AccountDoesNotExistsException("Account does not exists"));
 
-		existentAccount.setActive(false);
+		existingAccount.setActive(false);
 
-		return accountRepository.save(existentAccount);
+		return accountRepository.save(existingAccount);
 
 	}
 
@@ -70,29 +70,29 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public double showBalance(Long id) throws AccountDoesNotExistsException {
-		Account existentAccount = accountRepository.findById(id)
+		Account existingAccount = accountRepository.findById(id)
 				.orElseThrow(() -> new AccountDoesNotExistsException("Account does not exists"));
 
-		return existentAccount.getAccountBalance();
+		return existingAccount.getAccountBalance();
 	}
 
 	@Override
 	public List<Transaction> listAllTransactions(Long id) throws AccountDoesNotExistsException {
 
-		Account existentAccount = accountRepository.findById(id)
+		Account existingAccount = accountRepository.findById(id)
 				.orElseThrow(() -> new AccountDoesNotExistsException("Account does not exists"));
 
-		return existentAccount.getTransactions();
+		return existingAccount.getTransactions();
 
 	}
 
 	@Override
 	public List<Transaction> listTransactionsByDate(Long id, Date currentDate, Date pastDate)
 			throws AccountDoesNotExistsException {
-		Account existentAccount = accountRepository.findById(id)
+		Account existingAccount = accountRepository.findById(id)
 				.orElseThrow(() -> new AccountDoesNotExistsException("Account does not exists"));
 
-		List<Transaction> transactions = existentAccount.getTransactions().stream()
+		List<Transaction> transactions = existingAccount.getTransactions().stream()
 				.filter(transaction -> transaction.getTransactionDate().after(pastDate)
 						&& transaction.getTransactionDate().before(currentDate))
 				.collect(Collectors.toList());
@@ -103,31 +103,31 @@ public class AccountServiceImpl implements AccountService {
 	@Transactional
 	@Override
 	public Account createDeposit(Long id, Transaction transaction) throws Exception {
-		Account existentAccount = accountRepository.findById(id)
+		Account existingAccount = accountRepository.findById(id)
 				.orElseThrow(() -> new AccountDoesNotExistsException("Account does not exists"));
 
 		if (transaction.isCretid() == false) {
 			throw new OperationNotAllowedException("This operation is not allowed. Must be a withdraw");
 		}
 
-		double totalBalance = existentAccount.getAccountBalance();
+		double totalBalance = existingAccount.getAccountBalance();
 
-		existentAccount.setAccountBalance(totalBalance + transaction.getValue());
+		existingAccount.setAccountBalance(totalBalance + transaction.getValue());
 
-		return accountRepository.save(existentAccount);
+		return accountRepository.save(existingAccount);
 	}
 
 	@Transactional
 	@Override
 	public Account createWithdraw(Long id, Transaction transaction) throws Exception {
-		Account existentAccount = accountRepository.findById(id)
+		Account existingAccount = accountRepository.findById(id)
 				.orElseThrow(() -> new AccountDoesNotExistsException("Account does not exists"));
 
 		if (transaction.isCretid() == true) {
 			throw new OperationNotAllowedException("This operation is not allowed. Must be a deposit");
 		}
 
-		List<Transaction> transactions = existentAccount.getTransactions().stream()
+		List<Transaction> transactions = existingAccount.getTransactions().stream()
 				.filter(pastTransaction -> pastTransaction.getTransactionDate().before(new Date())
 						&& pastTransaction.isCretid() == false)
 				.collect(Collectors.toList());
@@ -151,27 +151,27 @@ public class AccountServiceImpl implements AccountService {
 			
 		}
 
-		if (totalWithdraw >= existentAccount.getDailyWithdrawalLimit()) {
+		if (totalWithdraw >= existingAccount.getDailyWithdrawalLimit()) {
 			throw new OperationNotAllowedException("This operation is not allowed. Withdraw limit reached");
 		}
 
-		if (transaction.getValue() > existentAccount.getDailyWithdrawalLimit()) {
+		if (transaction.getValue() > existingAccount.getDailyWithdrawalLimit()) {
 			throw new OperationNotAllowedException("This operation is not allowed. Withdraw daily limit is "
-					+ existentAccount.getDailyWithdrawalLimit());
+					+ existingAccount.getDailyWithdrawalLimit());
 		}
 
-		double withdrawValueAllowed = existentAccount.getDailyWithdrawalLimit() - totalWithdraw;
+		double withdrawValueAllowed = existingAccount.getDailyWithdrawalLimit() - totalWithdraw;
 
 		if (transaction.getValue() > withdrawValueAllowed) {
 			throw new OperationNotAllowedException(
 					"This operation is not allowed. Cannot withdraw this value " + transaction.getValue());
 		}
 
-		double totalBalance = existentAccount.getAccountBalance();
+		double totalBalance = existingAccount.getAccountBalance();
 
-		existentAccount.setAccountBalance(totalBalance - transaction.getValue());
+		existingAccount.setAccountBalance(totalBalance - transaction.getValue());
 
-		return accountRepository.save(existentAccount);
+		return accountRepository.save(existingAccount);
 	}
 
 }

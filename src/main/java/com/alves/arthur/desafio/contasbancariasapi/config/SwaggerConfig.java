@@ -28,7 +28,7 @@ public class SwaggerConfig {
 
 	private ApiInfo metaInfo() {
 
-		ApiInfo apiInfo = new ApiInfo("Account Menagement API",
+		ApiInfo apiInfo = new ApiInfo("Account Management API",
 				"API para gerenciamento de contas e transações para o desafio do LTI.", "1.0", "Terms of Service",
 				new Contact("Arthur Alves", "https://github.com/arthuralveso", "arthuralves91@gmail.com"),
 				"Apache License Version 2.0", "https://www.apache.org/licesen.html", new ArrayList<VendorExtension>());
